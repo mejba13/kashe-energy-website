@@ -1,26 +1,203 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
+/* Kashe Energy Design Tokens */
 @theme inline {
+  /* Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+
+  /* Fonts */
+  --font-sans: var(--font-inter);
+  --font-serif: "Times New Roman", Times, serif;
+  --font-heading: var(--font-inter);
+
+  /* Radius - 20px base */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-2xl: 28px;
+  --radius-3xl: 32px;
+  --radius-4xl: 40px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+  Kashe Energy Color Palette
+  Primary Surface: #FFEFE6 (warm cream)
+  Accent: #DF4418 (burnt orange)
+  Background Dark: #333333 (charcoal)
+  Text Primary: #333333
+*/
+
+:root {
+  --radius: 20px;
+
+  /* Light theme - for light sections/cards */
+  --background: #FFEFE6;
+  --foreground: #333333;
+
+  --card: #FFEFE6;
+  --card-foreground: #333333;
+
+  --popover: #FFFFFF;
+  --popover-foreground: #333333;
+
+  --primary: #333333;
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #F5E6DC;
+  --secondary-foreground: #333333;
+
+  --muted: #F0E4DB;
+  --muted-foreground: #666666;
+
+  --accent: #DF4418;
+  --accent-foreground: #FFFFFF;
+
+  --destructive: #DC2626;
+
+  --border: rgba(51, 51, 51, 0.1);
+  --input: rgba(51, 51, 51, 0.1);
+  --ring: #DF4418;
+}
+
+/* Dark sections use these overrides */
+.dark-section {
+  --background: #333333;
+  --foreground: #FFFFFF;
+  --card: #FFEFE6;
+  --card-foreground: #333333;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --muted: #444444;
+  --muted-foreground: #AAAAAA;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-serif);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    @apply font-semibold tracking-tight;
+  }
+
+  /* Typography Scale */
+  h1 {
+    @apply text-5xl md:text-7xl lg:text-[88px] leading-[0.95];
+  }
+
+  h2 {
+    @apply text-4xl md:text-5xl lg:text-[60px] leading-[1.1];
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl lg:text-4xl leading-[1.2];
+  }
+
+  p {
+    @apply text-[15px] leading-relaxed;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  /* Container */
+  .container-site {
+    @apply mx-auto w-full max-w-[1320px] px-4 md:px-6 lg:px-8;
+  }
+
+  /* Bento grid system */
+  .bento-grid {
+    @apply grid gap-4 md:gap-6;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    .bento-grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .bento-grid {
+      grid-template-columns: repeat(12, 1fr);
+    }
+  }
+
+  /* Bento card sizes */
+  .bento-sm {
+    grid-column: span 4 / span 4;
+  }
+
+  .bento-md {
+    grid-column: span 4 / span 4;
+  }
+
+  .bento-lg {
+    grid-column: span 4 / span 4;
+  }
+
+  @media (min-width: 768px) {
+    .bento-sm {
+      grid-column: span 3 / span 3;
+    }
+    .bento-md {
+      grid-column: span 3 / span 3;
+    }
+    .bento-lg {
+      grid-column: span 6 / span 6;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .bento-sm {
+      grid-column: span 3 / span 3;
+    }
+    .bento-md {
+      grid-column: span 4 / span 4;
+    }
+    .bento-lg {
+      grid-column: span 6 / span 6;
+    }
+  }
+}
+
+/* Focus visible styles */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-accent;
+}
+
+/* Selection */
+::selection {
+  background-color: #DF4418;
+  color: #FFFFFF;
 }
