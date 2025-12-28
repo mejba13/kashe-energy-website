@@ -6,22 +6,27 @@ import Link from "next/link";
 interface LogoProps {
   className?: string;
   variant?: "dark" | "light";
+  size?: "default" | "large";
 }
 
-export function Logo({ className, variant = "dark" }: LogoProps) {
+export function Logo({ className, variant = "dark", size = "default" }: LogoProps) {
   const textColor = variant === "dark" ? "text-[#333333]" : "text-white";
   const accentColor = "#DF4418";
+
+  const logoSize = size === "large" ? 56 : 48;
+  const textSize = size === "large" ? "text-2xl" : "text-xl";
+  const subtextSize = size === "large" ? "text-xs" : "text-[11px]";
 
   return (
     <Link
       href="/"
-      className={cn("flex items-center gap-2 group", className)}
+      className={cn("flex items-center gap-3 group", className)}
       aria-label="Kashe Energy - Home"
     >
       {/* Logo Mark */}
       <svg
-        width="40"
-        height="40"
+        width={logoSize}
+        height={logoSize}
         viewBox="0 0 40 40"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +50,7 @@ export function Logo({ className, variant = "dark" }: LogoProps) {
         <path
           d="M17 14V26M17 20L23 14M17 20L23 26"
           stroke="white"
-          strokeWidth="2"
+          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -55,7 +60,8 @@ export function Logo({ className, variant = "dark" }: LogoProps) {
       <div className="flex flex-col leading-none">
         <span
           className={cn(
-            "text-xl font-semibold tracking-tight transition-colors",
+            "font-bold tracking-tight transition-colors",
+            textSize,
             textColor
           )}
           style={{ fontFamily: "var(--font-inter)" }}
@@ -63,7 +69,10 @@ export function Logo({ className, variant = "dark" }: LogoProps) {
           KASHE
         </span>
         <span
-          className="text-[10px] font-medium tracking-[0.2em] uppercase"
+          className={cn(
+            "font-semibold tracking-[0.25em] uppercase mt-0.5",
+            subtextSize
+          )}
           style={{ color: accentColor }}
         >
           ENERGY
