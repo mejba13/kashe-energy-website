@@ -2,6 +2,9 @@
 
 A premium, production-ready website for **Kashe Energy** - an automotive energy and lubricant brand. Built with modern web technologies and featuring a sophisticated design system inspired by WLT Design aesthetics.
 
+<img width="2090" height="1436" alt="homepage" src="https://github.com/user-attachments/assets/63c576cf-974f-46db-919e-0e7eb2f7a9af" />
+
+
 ## Preview
 
 - **Home**: Landing page with hero, bento grid features, product showcase, and trust indicators
