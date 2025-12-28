@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { getFeaturedProducts, Product } from "@/data/products";
@@ -22,64 +23,20 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
         <div className="relative bg-gradient-to-b from-[#FFEFE6] to-[#F5E6DC] rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-accent/10">
           {/* Product image area */}
           <div className="relative aspect-[3/4] overflow-hidden">
-            {/* Background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FFEFE6]/80" />
+            {/* Product Image */}
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            />
 
-            {/* Decorative elements */}
-            <div className="absolute top-8 right-8 w-32 h-32 bg-accent/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-20 left-8 w-24 h-24 bg-accent/5 rounded-full blur-2xl" />
-
-            {/* Product bottle visualization */}
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center"
-              whileHover={{ scale: 1.05, y: -10 }}
-              transition={{ duration: 0.4 }}
-            >
-              <div className="relative">
-                {/* Bottle silhouette */}
-                <div className="w-32 h-52 bg-gradient-to-b from-[#333333] to-[#1a1a1a] rounded-t-2xl rounded-b-[30%] shadow-2xl relative overflow-hidden">
-                  {/* Cap */}
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-6 bg-accent rounded-t-lg" />
-
-                  {/* Label */}
-                  <div className="absolute top-10 left-3 right-3 bottom-16 bg-gradient-to-b from-[#FFEFE6] to-[#F5E6DC] rounded-xl p-2">
-                    <div className="h-full flex flex-col justify-between">
-                      <div>
-                        <div className="text-[8px] font-bold text-[#333333] tracking-wider" style={{ fontFamily: "var(--font-inter)" }}>
-                          KASHE ENERGY
-                        </div>
-                      </div>
-                      <div>
-                        <div className="text-xs font-bold text-[#333333]" style={{ fontFamily: "var(--font-inter)" }}>
-                          {product.name.split(" ")[1]}
-                        </div>
-                        <div className="text-[10px] text-accent font-medium">
-                          {product.specs["SAE Grade"] || "Premium"}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Oil shimmer */}
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-accent/60 to-transparent rounded-b-[30%]"
-                    animate={{
-                      opacity: [0.6, 0.8, 0.6],
-                    }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
-
-                  {/* Reflection */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                </div>
-
-                {/* Shadow */}
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-black/20 rounded-full blur-md" />
-              </div>
-            </motion.div>
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
 
             {/* Category badge */}
-            <div className="absolute top-6 left-6">
+            <div className="absolute top-6 left-6 z-10">
               <span
                 className="inline-block px-3 py-1.5 bg-[#333333]/90 text-white text-xs font-medium rounded-full backdrop-blur-sm"
                 style={{ fontFamily: "var(--font-inter)" }}
@@ -90,7 +47,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
             {/* Featured badge */}
             {product.featured && (
-              <div className="absolute top-6 right-6">
+              <div className="absolute top-6 right-6 z-10">
                 <span
                   className="inline-block px-3 py-1.5 bg-accent text-white text-xs font-medium rounded-full"
                   style={{ fontFamily: "var(--font-inter)" }}
@@ -101,7 +58,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             )}
 
             {/* Hover arrow */}
-            <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+            <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-10">
               <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center shadow-lg shadow-accent/30">
                 <ArrowUpRight className="w-5 h-5 text-white" />
               </div>

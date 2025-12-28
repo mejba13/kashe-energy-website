@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { Header, Footer, Container } from "@/components/layout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -293,22 +294,21 @@ export default function ProductsPage() {
                             : "w-48 h-48 flex-shrink-0"
                         )}
                       >
-                        {/* Placeholder visual */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <motion.div
-                            className="w-24 h-24 rounded-full bg-accent/10"
-                            animate={{ scale: [1, 1.1, 1] }}
-                            transition={{ duration: 3, repeat: Infinity }}
-                          />
-                          <div className="absolute w-16 h-16 rounded-full bg-accent/20 blur-xl" />
-                        </div>
+                        {/* Product Image */}
+                        <Image
+                          src={product.image}
+                          alt={product.name}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-110"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
 
                         {/* Hover overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                         {/* Featured badge */}
                         {product.featured && (
-                          <div className="absolute top-4 left-4">
+                          <div className="absolute top-4 left-4 z-10">
                             <Badge className="bg-accent text-white border-0 shadow-lg">
                               Featured
                             </Badge>
@@ -317,7 +317,7 @@ export default function ProductsPage() {
 
                         {/* Quick view button */}
                         <motion.div
-                          className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                          className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
                           initial={{ y: 10 }}
                           whileHover={{ y: 0 }}
                         >

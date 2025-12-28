@@ -3,6 +3,7 @@
 import { use, useRef } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Header, Footer, Container } from "@/components/layout";
 import { Button } from "@/components/ui/button";
@@ -103,26 +104,29 @@ export default function ProductPage({ params }: ProductPageProps) {
                   style={{ scale: imageScale }}
                   className="aspect-square rounded-3xl bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] overflow-hidden relative border border-white/5"
                 >
-                  {/* Product visual placeholder */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      className="w-48 h-48 rounded-full bg-accent/20 blur-3xl"
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 4, repeat: Infinity }}
-                    />
-                    <motion.div
-                      className="absolute w-32 h-32 rounded-full bg-accent/30 blur-xl"
-                      animate={{ scale: [1.2, 1, 1.2] }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                    />
+                  {/* Product Image */}
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                  />
 
-                    {/* Bottle silhouette placeholder */}
-                    <div className="absolute w-24 h-48 bg-gradient-to-b from-white/10 to-white/5 rounded-t-2xl rounded-b-lg" />
-                  </div>
+                  {/* Gradient overlay for premium feel */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+
+                  {/* Animated glow effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-tr from-accent/10 via-transparent to-accent/5 opacity-50"
+                    animate={{ opacity: [0.3, 0.5, 0.3] }}
+                    transition={{ duration: 4, repeat: Infinity }}
+                  />
 
                   {/* Decorative ring */}
                   <motion.div
-                    className="absolute inset-8 border border-white/5 rounded-3xl"
+                    className="absolute inset-8 border border-white/10 rounded-3xl pointer-events-none"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
                   />
@@ -484,13 +488,14 @@ export default function ProductPage({ params }: ProductPageProps) {
                     >
                       {/* Product Image */}
                       <div className="aspect-square relative overflow-hidden bg-gradient-to-br from-[#f5f5f5] to-[#e5e5e5]">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <motion.div
-                            className="w-20 h-20 rounded-full bg-accent/10"
-                            whileHover={{ scale: 1.1 }}
-                          />
-                          <div className="absolute w-14 h-14 rounded-full bg-accent/20 blur-xl" />
-                        </div>
+                        <Image
+                          src={relatedProduct.image}
+                          alt={relatedProduct.name}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-110"
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                         <div className="absolute inset-0 bg-gradient-to-t from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       </div>
 
